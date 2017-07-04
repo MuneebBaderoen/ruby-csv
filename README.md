@@ -23,7 +23,7 @@ $ ruby aggregate.rb Loans.csv Network,Product,Month
  	- I am a firm believer that making classes when only functions are required makes code harder to reason about. The constructs of Object-Orientation are useful for expressing modularity, but increase mental processing required to understand the interaction and dependencies between classes and instances thereof. Its about weighing up those alternatives and streamlining for understanding.
  	- Stateful objects also force particular order of execution and reproducing a state requires the same sequence of actions. Pure functions have the benefit of reliably returning the same result for the same parameters.
  - Performance and Scaling
- 	- Loading all file contents into memory is smoother but falls apart for larger datasets (larger than available memory). Some chunking or equivalent to map reduce would suit this problem well. This implementation is small scale map-reduce.
+ 	- Loading all file contents into memory is smoother but falls apart for larger datasets (larger than available memory). Some chunking or equivalent to map-reduce would suit this problem well. This implementation is small scale map-reduce.
  	- Using pure functions also simplifies concurrent implementations. Without shared state, no semaphores or locking mechanisms are required.
 
 ### Assumptions:
@@ -32,7 +32,7 @@ $ ruby aggregate.rb Loans.csv Network,Product,Month
 - Date is the only date field
 - Amount is the only numeric field
 - The output csv does not need to be sorted in any way
-- Command line arguments only allow for custom filepath and colmun names to group by. 
+- Command line arguments only allow for custom filepath and column names to group by. 
 	- Any additional parsing is not catered for (apart from parsing dates and amounts)
 	- Any additional logic to reduce a group of records to a single output record is not catered for (apart from summing amounts)
 
