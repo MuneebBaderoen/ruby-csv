@@ -2,6 +2,14 @@
 
 Written and tested using: Ruby 2.3.1
 
+Full version number: 
+```
+$ ruby -v
+> ruby 2.3.1p112 (2016-04-26 revision 54768) [x86_64-darwin15]
+```
+
+I am using rbenv on Mac OSX to select ruby versions. I am not sure of Ruby version compatibility within 2.x, but to my understanding the use of named parameters is not compatible with Ruby 1.x
+
 ### Example usage: 
 ```
 $ ruby aggregate.rb Loans.csv Network,Product,Month
