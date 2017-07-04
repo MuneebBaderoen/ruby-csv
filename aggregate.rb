@@ -22,7 +22,7 @@ def read_csv(filepath:)
         # Grab values from csv data
         row.split(',').map.with_index do |column, column_index|
           # Remove wrapping quotes
-          row_hash[keys[column_index]] = column.gsub(/^'|'$/, '')
+          row_hash[keys[column_index]] = column
         end
 
         # Append hash to result
@@ -72,16 +72,12 @@ def group_by(records: [], columns: "")
       .map { |column| record[column] }
       .join(",")
 
-    if(result[key].nil?)
-      # The key doesnt exist in the result, set its value to the record
-      result[key] = [record]
-    else 
-      # The key already exists, add this record to the group
-      result[key].push(record)
-    end
+    # Create an array to track records in this group, if necessary
+    result[key] = [] if result[key].nil?
+    result[key].push(record)
   end
 
-  # Return the groups only, not the 'cache' keys
+  # Return the groups only, not the grouping keys
   # Each group is an array of hashes that share the same key
   result.values
 end
@@ -100,7 +96,7 @@ arg_groupby_columns = ARGV[1]
 parsed_records = read_csv(filepath:arg_filepath)
   .map do |record|
     # Parse date and amount
-    parsedDate = Date.strptime(record["Date"], "%d-%b-%Y")
+    parsedDate = Date.strptime(record["Date"], "'%d-%b-%Y'")
     record["Month"] = parsedDate.strftime('%B')
     record["Amount"] = record["Amount"].to_f
     record
@@ -121,6 +117,5 @@ grouped_records = group_by(records:parsed_records, columns:arg_groupby_columns)
     result
   end
 
-# write_csv(grouped_records)
 write_csv(records: grouped_records)
 
